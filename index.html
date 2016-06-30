@@ -1,9 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="dailyStatus">
 <head>
+	<link rel="stylesheet" href="assets/css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
+	<script type="text/javascript" src="app/app.js"></script>
 </head>
-<body>
-	
-</body>
+	<body ng-controller="mainController">
+		<div ng-include="'partials/header.html'"></div>
+		<div ng-view></div>
+		<div ng-include="'partials/footer.html'"></div>
+	</body>
 </html>

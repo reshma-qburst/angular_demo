@@ -1,0 +1,140 @@
+<div id="main">
+	<div id="content">
+		<div id="angularRenderedContent" ui-view="" autoscroll="true">
+			<div class="row ">
+            	<div class="col-xs-12 col-sm-9 col-md-9 col-lg-8">
+                	<h1 class="page-title txt-color-blueDark">
+                        Daily Status
+                    </h1>
+                </div>
+            </div>
+            <section id="widget-grid">
+                <div class="row">
+                	<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                		<div class="well padding-10">
+                			<form>
+                				<div class="row">
+			                        <h6 class="page-title color-3276b1">
+			                            Bursts
+			                        </h6>
+			                    </div>
+			                    <div class="row">
+			                        <div class="col-md-12">
+			                            <fieldset class="smart-form">
+			                                <div class="row">
+			                                	<div class="col col-2">
+			                                        <label class="label">Date</label>
+			                                        <label class="select">
+			                                            <select class="input-sm" id="postedFor" name="postedFor" onclick="" required="">
+				                                            
+
+			                                            </select>
+			                                            <i></i>
+			                                        </label>
+			                                        <em id="postedForError" class="valid" style="display: none;"></em>
+			                                    </div>
+
+			                                    <div class="col col-4">
+			                                        <label class="label">Project</label>
+			                                        <label class="input">
+			                                            <input type="text" id="project" name="project" list="projectList" autocomplete="off" required="" onchange="onFieldChange('project','projectError');">
+			                                        </label>
+			                                        <em id="projectError" class="valid" style="display: none;"></em>
+			                                    </div>
+			                                    <datalist id="projectList">
+			                                    	
+			                                    </datalist>
+			                                    <div class="col col-2">
+			                                        <label class="label">Activity Type</label>
+			                                        <label class="select">
+			                                            <select class="input-sm" id="activityType" name="activityType">
+			                                            	
+			                                            </select>
+			                                            <i></i>
+			                                        </label>
+			                                        <em id="activityTypeError" class="valid" style="display: none;"></em>
+			                                    </div>
+			                                    <div class="col col-2">
+			                                        <label class="label">Time Spent (hours:minutes)</label>
+			                                        <div class="col col-6 no-padding">
+			                                            <label class="select">
+			                                                <select class="input-sm  " id="timeSpent" name="timeSpent" required="">
+			                                                        <option value="00">00</option>
+			                                                        <option value="01">01</option>
+			                                                        <option value="02">02</option>
+			                                                        <option value="03">03</option>
+			                                                        <option value="04">04</option>
+			                                                        <option value="05">05</option>
+			                                                        <option value="06">06</option>
+			                                                        <option value="07">07</option>
+			                                                        <option value="08" selected="">08</option>
+			                                                        <option value="09">09</option>
+			                                                        <option value="10">10</option>
+			                                                        <option value="11">11</option>
+			                                                        <option value="12">12</option>
+			                                                        <option value="13">13</option>
+			                                                        <option value="14">14</option>
+			                                                        <option value="15">15</option>
+			                                                        <option value="16">16</option>
+			                                                </select> <i></i>
+			                                            </label>
+			                                            <em id="timeSpentError" class="valid width200P" style="display: none;"></em>
+			                                        </div>
+			                                        <div class="col col-6 no-padding">
+			                                            <label class="select">
+			                                                <select class="input-sm" id="timeSpent_1" name="timeSpent_1">
+			                                                        <option value="00">00</option>
+			                                                        <option value="15">15</option>
+			                                                        <option value="30">30</option>
+			                                                        <option value="45">45</option>
+			                                                </select> <i></i>
+			                                            </label>
+			                                        </div>
+			                                    </div>
+			                                </div>
+			                            </fieldset>
+			                        </div>
+			                    </div>
+			                    <div class="row">
+			                       <div class="center formFooter">
+			                                <button type="button" class="btn btn-primary" id="saveDailyStatusButton" ng-click="saveDailyStatus(dailyStatusContent.newDailyStatus);">
+			                                    Save
+			                                </button>
+			                            </div>
+			                    </div>
+                			</form>
+                		</div>
+                		<div class="row">
+                			<div>
+                    			<h6 class="page-title">My History</h6>
+                			</div>
+                			<div>
+				                <fieldset class="smart-form">
+						            <div>
+						                <label class="select">
+						                    <select name="show" id="show" ng-model="searchBy.show" ng-options="status.key as status.val for status in projectStatusList" ng-init="searchBy.show=''" class=" "><option value="" class="">All</option></select> <i></i>
+						                </label>
+						            </div>
+			        			<fieldset>
+			                	</fieldset></fieldset>
+			                </div>
+                		</div>
+                		<div class="router-animation-loader center padding-top-20">
+                			<i class="fa fa-gear fa-4x fa-spin"></i>
+                		</div>
+                		<div id="history"></div>
+                		<div id="nohistory">
+                			<div class="well padding-10 animated fadeInUp fadeInBottom" data-animate="fadeInUp">
+                			<form class="smart-form">
+                				<div class="row padding-top-10">
+                					<p class="center"><strong>No daily status history available</strong></p>
+                				</div>
+                			</form>
+                			</div>
+                		</div>
+                	</article>
+                </div>
+            </section>
+		</div>
+	</div>
+</div>
