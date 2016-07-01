@@ -27,7 +27,6 @@
 			                                        <label class="select">
 			                                            <select class="input-sm" id="postedFor" name="postedFor" onclick="" required="">
 				                                            
-
 			                                            </select>
 			                                            <i></i>
 			                                        </label>
@@ -42,13 +41,13 @@
 			                                        <em id="projectError" class="valid" style="display: none;"></em>
 			                                    </div>
 			                                    <datalist id="projectList">
-			                                    	
+			                                    	<option ng-repeat="projectData in ::projectList.data" id="{{projectData.id}}">{{projectData.value}}</option>
 			                                    </datalist>
 			                                    <div class="col col-2">
 			                                        <label class="label">Activity Type</label>
 			                                        <label class="select">
 			                                            <select class="input-sm" id="activityType" name="activityType">
-			                                            	
+			                                            	<option ng-repeat="data in ::activityList.data" id="{{data.id}}">{{data.value}}</option>
 			                                            </select>
 			                                            <i></i>
 			                                        </label>
@@ -58,7 +57,7 @@
 			                                        <label class="label">Time Spent (hours:minutes)</label>
 			                                        <div class="col col-6 no-padding">
 			                                            <label class="select">
-			                                                <select class="input-sm  " id="timeSpent" name="timeSpent" required="">
+			                                                <select class="input-sm" id="timeSpent" name="timeSpent" required="">
 			                                                        <option value="00">00</option>
 			                                                        <option value="01">01</option>
 			                                                        <option value="02">02</option>
@@ -108,11 +107,12 @@
                 			<div>
                     			<h6 class="page-title">My History</h6>
                 			</div>
-                			<div>
+                			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-4">
 				                <fieldset class="smart-form">
-						            <div>
+						            <div class="col col-3 pull-right no-padding">
 						                <label class="select">
-						                    <select name="show" id="show" ng-model="searchBy.show" ng-options="status.key as status.val for status in projectStatusList" ng-init="searchBy.show=''" class=" "><option value="" class="">All</option></select> <i></i>
+						                    <select name="show" id="show" ng-model="searchBy.show" ng-options="status.key as status.val for status in projectStatusList" ng-init="searchBy.show=''" class=" ">
+						                    <option value="" class="">All</option></select> <i></i>
 						                </label>
 						            </div>
 			        			<fieldset>
