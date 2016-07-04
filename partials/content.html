@@ -25,8 +25,7 @@
 			                                	<div class="col col-2">
 			                                        <label class="label">Date</label>
 			                                        <label class="select">
-			                                            <select class="input-sm" id="postedFor" name="postedFor" onclick="" required="">
-				                                            
+			                                            <select class="input-sm" id="postedFor" name="postedFor" onclick="" required="" ng-options="selectedItem as selectedItem.value for selectedItem in dateHTML track by selectedItem.id" ng-model="selected">
 			                                            </select>
 			                                            <i></i>
 			                                        </label>
@@ -36,7 +35,7 @@
 			                                    <div class="col col-4">
 			                                        <label class="label">Project</label>
 			                                        <label class="input">
-			                                            <input type="text" id="project" name="project" list="projectList" autocomplete="off" required="" onchange="onFieldChange('project','projectError');">
+			                                            <input type="text" id="project" name="project" list="projectList" autocomplete="off" required="" ng-model="selectedProject">
 			                                        </label>
 			                                        <em id="projectError" class="valid" style="display: none;"></em>
 			                                    </div>
@@ -46,8 +45,7 @@
 			                                    <div class="col col-2">
 			                                        <label class="label">Activity Type</label>
 			                                        <label class="select">
-			                                            <select class="input-sm" id="activityType" name="activityType">
-			                                            	<option ng-repeat="data in ::activityList.data" id="{{data.id}}">{{data.value}}</option>
+			                                            <select class="input-sm" id="activityType" name="activityType" ng-model="selectedActivity" ng-options="activity as activity.value for activity in activityList.data track by activity.id">
 			                                            </select>
 			                                            <i></i>
 			                                        </label>
@@ -57,7 +55,7 @@
 			                                        <label class="label">Time Spent (hours:minutes)</label>
 			                                        <div class="col col-6 no-padding">
 			                                            <label class="select">
-			                                                <select class="input-sm" id="timeSpent" name="timeSpent" required="">
+			                                                <select class="input-sm" id="timeSpent" name="timeSpent" required="" ng-model="selectedMinuteSpent">
 			                                                        <option value="00">00</option>
 			                                                        <option value="01">01</option>
 			                                                        <option value="02">02</option>
@@ -81,7 +79,7 @@
 			                                        </div>
 			                                        <div class="col col-6 no-padding">
 			                                            <label class="select">
-			                                                <select class="input-sm" id="timeSpent_1" name="timeSpent_1">
+			                                                <select class="input-sm" id="timeSpent_1" name="timeSpent_1" ng-model="selectedSecondsSpent">
 			                                                        <option value="00">00</option>
 			                                                        <option value="15">15</option>
 			                                                        <option value="30">30</option>
@@ -91,12 +89,21 @@
 			                                        </div>
 			                                    </div>
 			                                </div>
+			                                <div class="row">
+			                                    <div class="col col-6">
+			                                        <label class="label">Activity Description</label>
+			                                        <label class="textarea"> 
+			                                            <textarea rows="5" name="message" id="message" maxlength="180" placeholder="Use T# or t# in your description to indicate Redmine ticket/task. For example : T#1234" class=" " ng-model="selectedMessage"></textarea>
+			                                        </label>
+			                                        <em id="messageError" class="valid" style="display: none;"></em>
+			                                    </div>
+			                                </div>
 			                            </fieldset>
 			                        </div>
 			                    </div>
 			                    <div class="row">
 			                       <div class="center formFooter">
-			                                <button type="button" class="btn btn-primary" id="saveDailyStatusButton" ng-click="saveDailyStatus(dailyStatusContent.newDailyStatus);">
+			                                <button type="button" class="btn btn-primary" id="saveDailyStatusButton" ng-click="saveDailyStatus();">
 			                                    Save
 			                                </button>
 			                            </div>

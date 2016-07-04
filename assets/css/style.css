@@ -227,3 +227,7 @@ fieldset {
 .smart-form .input input {
     border-color: #BDBDBD;
 }
+.smart-form .textarea textarea {
+    height: auto;
+    resize: none;
+}
