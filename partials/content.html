@@ -12,7 +12,7 @@
                 <div class="row">
                 	<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 		<div class="well padding-10">
-                			<form>
+                			<form name="dailyStatusForm" novalidate ng-submit="saveDailyStatus();">
                 				<div class="row">
 			                        <h6 class="page-title color-3276b1">
 			                            Bursts
@@ -25,19 +25,17 @@
 			                                	<div class="col col-2">
 			                                        <label class="label">Date</label>
 			                                        <label class="select">
-			                                            <select class="input-sm" id="postedFor" name="postedFor" onclick="" required="" ng-options="selectedItem as selectedItem.value for selectedItem in dateHTML track by selectedItem.id" ng-model="selected">
+			                                            <select class="input-sm" id="postedFor" name="postedFor" onclick="" ng-options="selectedItem as selectedItem.value for selectedItem in dateHTML track by selectedItem.id" ng-model="dateSelected">
 			                                            </select>
 			                                            <i></i>
 			                                        </label>
-			                                        <em id="postedForError" class="valid" style="display: none;"></em>
 			                                    </div>
-
 			                                    <div class="col col-4">
 			                                        <label class="label">Project</label>
 			                                        <label class="input">
-			                                            <input type="text" id="project" name="project" list="projectList" autocomplete="off" required="" ng-model="selectedProject">
+			                                            <input type="text" id="project" name="project" list="projectList" autocomplete="off" required ng-model="selectedProject">
+			                                            <p ng-class="{'error-field': dailyStatusForm.$submitted &&dailyStatusForm.project.$invalid}" ng-if="dailyStatusForm.$submitted && dailyStatusForm.project.$error.required">This field may not be null.</p>
 			                                        </label>
-			                                        <em id="projectError" class="valid" style="display: none;"></em>
 			                                    </div>
 			                                    <datalist id="projectList">
 			                                    	<option ng-repeat="projectData in ::projectList.data" id="{{projectData.id}}">{{projectData.value}}</option>
@@ -45,17 +43,16 @@
 			                                    <div class="col col-2">
 			                                        <label class="label">Activity Type</label>
 			                                        <label class="select">
-			                                            <select class="input-sm" id="activityType" name="activityType" ng-model="selectedActivity" ng-options="activity as activity.value for activity in activityList.data track by activity.id">
+			                                            <select class="input-sm" id="activityType" name="activityType" ng-model="selectedActivity" ng-options="activity as activity.value for activity in activityList.data track by activity.id" required>
 			                                            </select>
 			                                            <i></i>
 			                                        </label>
-			                                        <em id="activityTypeError" class="valid" style="display: none;"></em>
 			                                    </div>
 			                                    <div class="col col-2">
 			                                        <label class="label">Time Spent (hours:minutes)</label>
 			                                        <div class="col col-6 no-padding">
 			                                            <label class="select">
-			                                                <select class="input-sm" id="timeSpent" name="timeSpent" required="" ng-model="selectedMinuteSpent">
+			                                                <select class="input-sm" id="timeSpent" name="timeSpent" required="" ng-model="selectedMinuteSpent" ng-init="selectedMinuteSpent='08'">
 			                                                        <option value="00">00</option>
 			                                                        <option value="01">01</option>
 			                                                        <option value="02">02</option>
@@ -64,7 +61,7 @@
 			                                                        <option value="05">05</option>
 			                                                        <option value="06">06</option>
 			                                                        <option value="07">07</option>
-			                                                        <option value="08" selected="">08</option>
+			                                                        <option value="08">08</option>
 			                                                        <option value="09">09</option>
 			                                                        <option value="10">10</option>
 			                                                        <option value="11">11</option>
@@ -75,11 +72,10 @@
 			                                                        <option value="16">16</option>
 			                                                </select> <i></i>
 			                                            </label>
-			                                            <em id="timeSpentError" class="valid width200P" style="display: none;"></em>
 			                                        </div>
 			                                        <div class="col col-6 no-padding">
 			                                            <label class="select">
-			                                                <select class="input-sm" id="timeSpent_1" name="timeSpent_1" ng-model="selectedSecondsSpent">
+			                                                <select class="input-sm" id="timeSpent_1" name="timeSpent_1" ng-model="selectedSecondsSpent" ng-init="selectedSecondsSpent='00'">
 			                                                        <option value="00">00</option>
 			                                                        <option value="15">15</option>
 			                                                        <option value="30">30</option>
@@ -92,10 +88,10 @@
 			                                <div class="row">
 			                                    <div class="col col-6">
 			                                        <label class="label">Activity Description</label>
-			                                        <label class="textarea"> 
-			                                            <textarea rows="5" name="message" id="message" maxlength="180" placeholder="Use T# or t# in your description to indicate Redmine ticket/task. For example : T#1234" class=" " ng-model="selectedMessage"></textarea>
+			                                        <label class="textarea" id="textareaLabel"> 
+			                                            <textarea rows="5" name="message" id="message" maxlength="180" placeholder="Use T# or t# in your description to indicate Redmine ticket/task. For example : T#1234" class=" " ng-model="selectedMessage" required></textarea>
+			                                            <p ng-class="{'error-field': dailyStatusForm.$submitted &&dailyStatusForm.message.$invalid}" ng-if="dailyStatusForm.$submitted && dailyStatusForm.message.$error.required">This field may not be blank.</p>
 			                                        </label>
-			                                        <em id="messageError" class="valid" style="display: none;"></em>
 			                                    </div>
 			                                </div>
 			                            </fieldset>
@@ -103,7 +99,7 @@
 			                    </div>
 			                    <div class="row">
 			                       <div class="center formFooter">
-			                                <button type="button" class="btn btn-primary" id="saveDailyStatusButton" ng-click="saveDailyStatus();">
+			                                <button type="submit" class="btn btn-primary" id="saveDailyStatusButton">
 			                                    Save
 			                                </button>
 			                            </div>
@@ -129,7 +125,25 @@
                 		<div class="router-animation-loader center padding-top-20">
                 			<i class="fa fa-gear fa-4x fa-spin"></i>
                 		</div>
-                		<div id="history"></div>
+                		<div id="history">
+						<div class="well padding-10 animated fadeInUp fadeInBottom" data-animate="fadeInUp" ng-repeat="list in listhistory">
+							<form class="smart-form">
+								<div class="row padding-top-10 breakWord">
+									<div class="col col-2 dailyStatusHistoryContainer">
+										<span>end-of-day</span><br><span>{{list.date}}</span><br><br><span>
+										<small id="postedOn">Posted on: {{list.today}} </small>
+										</span><br><span><small id="postedTime">{{list.time}}</small><span></span></span>
+									</div>
+									<div class="col col-8 dailyStatusHistoryContainer">
+										<span><strong>{{list.message}}</strong></span><br>
+									</div>
+									<div class="col col-2">
+										<span>{{list.minute}}:{{list.seconds}} hour(s)</span><br><span>{{list.activity}}</span><br><br><span></span><span>{{list.project}}</span><br>
+									</div>
+								</div>
+							</form>
+						</div>
+                		</div>
                 		<div id="nohistory">
                 			<div class="well padding-10 animated fadeInUp fadeInBottom" data-animate="fadeInUp">
                 			<form class="smart-form">

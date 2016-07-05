@@ -10,9 +10,14 @@ app.controller('mainController',['$scope','loadJson','dateDropdown','saveStatus'
 	});
 
 	$scope.dateHTML = dateDropdown;
-	$scope.selected = $scope.dateHTML[7];
+	$scope.dateSelected = $scope.dateHTML[7];
 
 	$scope.saveDailyStatus = function(){
-    	saveStatus.saveActivity($scope.selected,$scope.selectedProject,$scope.selectedActivity.value,$scope.selectedMinuteSpent,$scope.selectedSecondsSpent,$scope.selectedMessage);
+		if($scope.dailyStatusForm.$valid) {
+			$scope.listhistory = saveStatus.saveActivity($scope.dateSelected,$scope.selectedProject,$scope.selectedActivity.value,$scope.selectedMinuteSpent,$scope.selectedSecondsSpent,$scope.selectedMessage);
+		}
+		else {
+			console.log("invalid")
+		} 
 	};
 }])
