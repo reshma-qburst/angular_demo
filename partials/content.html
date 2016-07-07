@@ -52,34 +52,13 @@
 			                                        <label class="label">Time Spent (hours:minutes)</label>
 			                                        <div class="col col-6 no-padding">
 			                                            <label class="select">
-			                                                <select class="input-sm" id="timeSpent" name="timeSpent" required="" ng-model="selectedMinuteSpent" ng-init="selectedMinuteSpent='08'">
-			                                                        <option value="00">00</option>
-			                                                        <option value="01">01</option>
-			                                                        <option value="02">02</option>
-			                                                        <option value="03">03</option>
-			                                                        <option value="04">04</option>
-			                                                        <option value="05">05</option>
-			                                                        <option value="06">06</option>
-			                                                        <option value="07">07</option>
-			                                                        <option value="08">08</option>
-			                                                        <option value="09">09</option>
-			                                                        <option value="10">10</option>
-			                                                        <option value="11">11</option>
-			                                                        <option value="12">12</option>
-			                                                        <option value="13">13</option>
-			                                                        <option value="14">14</option>
-			                                                        <option value="15">15</option>
-			                                                        <option value="16">16</option>
+			                                                <select class="input-sm" id="timeSpent" name="timeSpent" ng-model="selectedMinuteSpent" ng-options="selectedItem as selectedItem.value for selectedItem in minutesDropdown track by selectedItem.id" ng-init="selectedMinuteSpent.id='08'" >
 			                                                </select> <i></i>
 			                                            </label>
 			                                        </div>
 			                                        <div class="col col-6 no-padding">
 			                                            <label class="select">
-			                                                <select class="input-sm" id="timeSpent_1" name="timeSpent_1" ng-model="selectedSecondsSpent" ng-init="selectedSecondsSpent='00'">
-			                                                        <option value="00">00</option>
-			                                                        <option value="15">15</option>
-			                                                        <option value="30">30</option>
-			                                                        <option value="45">45</option>
+			                                                <select class="input-sm" id="timeSpent_1" name="timeSpent_1" ng-model="selectedSecondsSpent" ng-options="selectedItem as selectedItem.value for selectedItem in secondsDropdown track by selectedItem.id"ng-init="selectedSecondsSpent.id='00'">
 			                                                </select> <i></i>
 			                                            </label>
 			                                        </div>
@@ -126,31 +105,31 @@
                 			<i class="fa fa-gear fa-4x fa-spin"></i>
                 		</div>
                 		<div id="history">
-						<div class="well padding-10 animated fadeInUp fadeInBottom" data-animate="fadeInUp" ng-repeat="list in listhistory">
-							<form class="smart-form">
-								<div class="row padding-top-10 breakWord">
-									<div class="col col-2 dailyStatusHistoryContainer">
-										<span>end-of-day</span><br><span>{{list.date}}</span><br><br><span>
-										<small id="postedOn">Posted on: {{list.today}} </small>
-										</span><br><span><small id="postedTime">{{list.time}}</small><span></span></span>
+							<div class="well padding-10 animated fadeInUp fadeInBottom" data-animate="fadeInUp" ng-repeat="list in listhistory">
+								<form class="smart-form">
+									<div class="row padding-top-10 breakWord">
+										<div class="col col-2 dailyStatusHistoryContainer">
+											<span>end-of-day</span><br><span>{{list.date}}</span><br><br><span>
+											<small id="postedOn">Posted on: {{list.today}} </small>
+											</span><br><span><small id="postedTime">{{list.time}}</small><span></span></span>
+										</div>
+										<div class="col col-8 dailyStatusHistoryContainer">
+											<span><strong>{{list.message}}</strong></span><br>
+										</div>
+										<div class="col col-2">
+											<span>{{list.minute}}:{{list.seconds}} hour(s)</span><br><span>{{list.activity}}</span><br><br><span></span><span>{{list.project}}</span><br>
+										</div>
 									</div>
-									<div class="col col-8 dailyStatusHistoryContainer">
-										<span><strong>{{list.message}}</strong></span><br>
-									</div>
-									<div class="col col-2">
-										<span>{{list.minute}}:{{list.seconds}} hour(s)</span><br><span>{{list.activity}}</span><br><br><span></span><span>{{list.project}}</span><br>
-									</div>
-								</div>
-							</form>
-						</div>
+								</form>
+							</div>
                 		</div>
-                		<div id="nohistory">
+                		<div id="nohistory" ng-if="!dailyStatusForm.$submitted">
                 			<div class="well padding-10 animated fadeInUp fadeInBottom" data-animate="fadeInUp">
-                			<form class="smart-form">
-                				<div class="row padding-top-10">
-                					<p class="center"><strong>No daily status history available</strong></p>
-                				</div>
-                			</form>
+	                			<form class="smart-form">
+	                				<div class="row padding-top-10">
+	                					<p class="center"><strong>No daily status history available</strong></p>
+	                				</div>
+	                			</form>
                 			</div>
                 		</div>
                 	</article>

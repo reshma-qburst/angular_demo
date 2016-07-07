@@ -1,7 +1,10 @@
-app.config(function($routeProvider){
-	$routeProvider
-		.when('/', {
-            templateUrl : 'partials/content.html',
-            controller  : 'mainController'
-        })
-});
+(function() {
+ 'use strict';
+	app.config(function($routeProvider){
+		$routeProvider
+			.when('/', {
+	            templateUrl : 'partials/content.html',
+	            controller  : 'mainController'
+	        })
+	});
+})();
