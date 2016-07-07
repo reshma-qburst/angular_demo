@@ -1,8 +1,9 @@
 (function(){
  'use strict';
 
- 	var previousValue;
  	var options;
+ 	var total = 8;
+ 	var totalSeconds = 60;
 	// create the controller and inject Angular's $scope
 	app.controller('mainController',['$scope','loadJson','dateDropdown','saveStatus','setDateAndTime',function($scope,loadJson,dateDropdown,saveStatus,setDateAndTime) {
 		loadJson.getActivityList().then(function(activityListData){
@@ -40,34 +41,123 @@
 				{"id": "30","value": "30"},
 				{"id": "45","value": "45"}];
 
-		$scope.calculateTime = function(){
-			
-		}
-
-		$scope.saveDailyStatus = function(){
+		$scope.saveDailyStatus = function(){			
 
 			if($scope.dailyStatusForm.$valid) {
-				previousValue = $scope.dateSelected.value ;
-				var dateElem = angular.element(document.querySelector('#postedFor'));
-				angular.forEach($scope.dateHTML, function(data, key) {
-					if(key == $scope.dateSelected.id){
-						if($scope.dateSelected.id != 0){
-							var nextElemIndex = 7-key+1;
-							$scope.dateSelected = $scope.dateHTML[nextElemIndex];
-							$scope.selectedMessage = '';
-						}
-					}
-				});
 
-			/*	var timeMinutesElem = angular.element(document.querySelector('#timespent'));
-				var timeSecondsElem = angular.element(document.querySelector('#timespent_1'));*/
-
-				/*setDateAndTime.calculateTime(dateElem,$scope.dateSelected,$scope.selectedMinuteSpent.id,
-					$scope.selectedSecondsSpent.id,previousValue,timeMinutesElem,timeSecondsElem,ind);
-*/
 				$scope.listhistory = saveStatus.saveActivity($scope.dateSelected,
 					$scope.selectedProject,$scope.selectedActivity.value,
 					$scope.selectedMinuteSpent,$scope.selectedSecondsSpent,$scope.selectedMessage);
+
+				var dateElem = angular.element(document.querySelector('#postedFor'));
+				var nextElemIndex;
+				angular.forEach($scope.dateHTML, function(data, key) {
+					if(key == $scope.dateSelected.id){
+						total = total - $scope.selectedMinuteSpent.id;
+						totalSeconds = totalSeconds - $scope.selectedSecondsSpent.id;
+						if($scope.dateSelected.id != 0 && $scope.selectedMinuteSpent.id == '08'){
+							nextElemIndex = 7-key+1;
+							$scope.dateSelected = $scope.dateHTML[nextElemIndex];
+						}else if($scope.dateSelected.id != 0 && $scope.selectedMinuteSpent.id < 8){
+							if($scope.selectedSecondsSpent.id == "00"){
+								if(total != 0 ){								
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[total];
+								}else{
+									nextElemIndex = 7-key+1;
+									$scope.dateSelected = $scope.dateHTML[nextElemIndex];
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[8];
+									$scope.selectedSecondsSpent = $scope.secondsDropdown[0];
+								}
+							}else if($scope.selectedSecondsSpent.id == "15"){
+								if(total != 0 ){								
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[total-1];
+									if(totalSeconds == 0)
+										$scope.selectedSecondsSpent = $scope.secondsDropdown[0];
+									else
+										$scope.selectedSecondsSpent = $scope.secondsDropdown[3];
+								}else{
+									nextElemIndex = 7-key+1;
+									$scope.dateSelected = $scope.dateHTML[nextElemIndex];
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[8];
+									$scope.selectedSecondsSpent = $scope.secondsDropdown[0];
+								}
+							}else if($scope.selectedSecondsSpent.id == "30"){
+								if(total != 0 ){								
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[total-1];
+									if(totalSeconds == 0)
+										$scope.selectedSecondsSpent = $scope.secondsDropdown[0];
+									else
+										$scope.selectedSecondsSpent = $scope.secondsDropdown[2];
+								}else{
+									nextElemIndex = 7-key+1;
+									$scope.dateSelected = $scope.dateHTML[nextElemIndex];
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[8];
+									$scope.selectedSecondsSpent = $scope.secondsDropdown[0];
+								}
+							}else if($scope.selectedSecondsSpent.id == "45"){
+								if(total != 0 ){								
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[total-1];
+									if(totalSeconds == 0)
+										$scope.selectedSecondsSpent = $scope.secondsDropdown[0];
+									else
+										$scope.selectedSecondsSpent = $scope.secondsDropdown[1];
+								}else{
+									nextElemIndex = 7-key+1;
+									$scope.dateSelected = $scope.dateHTML[nextElemIndex];
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[8];
+									$scope.selectedSecondsSpent = $scope.secondsDropdown[0];
+								}
+							}
+						}else if($scope.dateSelected.id == 0){
+							if($scope.selectedSecondsSpent.id == "00"){
+								if(total != 0 ){								
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[total];
+								}else{
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[8];
+									$scope.selectedSecondsSpent = $scope.secondsDropdown[0];
+								}
+							}else if($scope.selectedSecondsSpent.id == "15"){
+								if(total != 0 ){								
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[total-1];
+									if(totalSeconds == 0)
+										$scope.selectedSecondsSpent = $scope.secondsDropdown[0];
+									else
+										$scope.selectedSecondsSpent = $scope.secondsDropdown[3];
+								}else{
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[8];
+									$scope.selectedSecondsSpent = $scope.secondsDropdown[0];
+								}
+							}else if($scope.selectedSecondsSpent.id == "30"){
+								if(total != 0 ){								
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[total-1];
+									if(totalSeconds == 0)
+										$scope.selectedSecondsSpent = $scope.secondsDropdown[0];
+									else
+										$scope.selectedSecondsSpent = $scope.secondsDropdown[2];
+								}else{
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[8];
+									$scope.selectedSecondsSpent = $scope.secondsDropdown[0];
+								}
+							}else if($scope.selectedSecondsSpent.id == "45"){
+								if(total != 0 ){								
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[total-1];
+									if(totalSeconds == 0)
+										$scope.selectedSecondsSpent = $scope.secondsDropdown[0];
+									else
+										$scope.selectedSecondsSpent = $scope.secondsDropdown[1];
+								}else{
+									$scope.selectedMinuteSpent = $scope.minutesDropdown[8];
+									$scope.selectedSecondsSpent = $scope.secondsDropdown[0];
+								}
+							}
+						}
+						$scope.message = "";
+					}
+				});
+/*		$scope.calculateTime = function(){
+			
+		}*/
+				
 			}
 			else{
 				console.log("invalid");
